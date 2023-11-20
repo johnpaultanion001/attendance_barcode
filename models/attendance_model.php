@@ -219,6 +219,10 @@ class Attendance_Model extends Model
 
     public function getRecentLoggedInStudent($studentId, $eventId)
     {
-        return $this->db->selectSingleData("SELECT * FROM attendance LEFT JOIN student ON student.studentid = attendance.studentid LEFT JOIN course ON course.courseid = student.courseid WHERE attendance.studentid != $studentId AND attendance.eventid = $eventId AND attendance.semester = ".$this->currentSemester()." AND attendance.schoolyear = '".$this->currentSchoolYear()."' ORDER BY attendance.dateadded DESC");
+        //return $this->db->selectSingleData("SELECT * FROM attendance LEFT JOIN student ON student.studentid = attendance.studentid LEFT JOIN course ON course.courseid = student.courseid WHERE attendance.studentid != $studentId AND attendance.eventid = $eventId AND attendance.semester = ".$this->currentSemester()." AND attendance.schoolyear = '".$this->currentSchoolYear()."' ORDER BY attendance.dateadded DESC");
+        //return $this->db->selectSingleData("SELECT * FROM attendance LEFT JOIN student ON student.studentid = attendance.studentid LEFT JOIN course ON course.courseid = student.student_academic_details.courseid WHERE attendance.studentid != $studentId AND attendance.eventid = $eventId AND attendance.semester = ".$this->currentSemester()." AND attendance.schoolyear = '".$this->currentSchoolYear()."' ORDER BY attendance.dateadded DESC");
+        
+        return $this->db->selectSingleData("SELECT * FROM attendance LEFT JOIN student ON student.studentid = attendance.studentid  AND attendance.eventid = $eventId AND attendance.semester = ".$this->currentSemester()." AND attendance.schoolyear = '".$this->currentSchoolYear()."' ORDER BY attendance.dateadded DESC");
+        //return $this->db->selectSingleData("SELECT * FROM student LEFT JOIN student_academic_details ON student_academic_details.studentid = student.studentid LEFT JOIN course ON course.courseid = student_academic_details.courseid LEFT JOIN student_barcode ON student_barcode.studentid = student.studentid WHERE student_barcode.barcode = '{$barcode}' AND student_academic_details.schoolyear = '".$this->currentSchoolYear()."'");
     }
 }
